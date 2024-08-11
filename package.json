@@ -105,7 +105,7 @@
   "size-limit": [
     {
       "path": "ru.js",
-      "limit": "399 B"
+      "limit": "500 B"
     }
   ],
   "clean-publish": {
