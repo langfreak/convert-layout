@@ -53,8 +53,10 @@ Currently supported keyboard layouts:
 * English (QWERTY, Dvorak, Colemak)
 * French
 * Italian
+* Georgian
 * German
 * Greek
+* Hungarian
 * Kazakh
 * Korean
 * Russian
