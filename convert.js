@@ -1,10 +1,13 @@
-module.exports = function convert(keys, values) {
-  var reverse = {}
-  var full = {}
-  var i
+module.exports = function convert(keys, values, autoCapitalize = true) {
+  let reverse = {}
+  let full = {}
+  let i
 
   for (i = keys.length; i--; ) {
-    full[keys[i].toUpperCase()] = values[i].toUpperCase()
+    if (autoCapitalize) {
+      full[keys[i].toUpperCase()] = values[i].toUpperCase()
+    }
+
     full[keys[i]] = values[i]
   }
 
@@ -14,12 +17,12 @@ module.exports = function convert(keys, values) {
 
   return {
     fromEn: function (str) {
-      return str.replace(/./g, function (ch) {
-        return full[ch] || ch
+      return str.replace(/./g, ch => {
+        return full[ch] || (autoCapitalize ? ch : '')
       })
     },
     toEn: function (str) {
-      return str.replace(/./g, function (ch) {
+      return str.replace(/./g, ch => {
         return reverse[ch] || ch
       })
     }

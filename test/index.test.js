@@ -1,5 +1,6 @@
-let main = require('../')
-let ru = require('../ru')
+let main = require('../dist/')
+let ka = require('../dist/ka')
+let ru = require('../dist/ru')
 
 it('has all languages in index', () => {
   expect(main.ru).toEqual(ru)
@@ -27,4 +28,8 @@ it('ignores unknown symbols', () => {
 
 it('ignores unknown symbols in reverse direction', () => {
   expect(ru.fromEn('проверка!')).toEqual('проверка!')
+})
+
+it('converts to Georgian', () => {
+  expect(ka.fromEn('qwertyQWERTYzxcZXC')).toEqual('ქწერტყჭღთზხცძჩ')
 })

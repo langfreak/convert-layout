@@ -1,6 +1,11 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.11.2
+* Added Georgian (ka) and Hungarian support (by @kevinstubbs).
+* Add auto-capitalization option to convert function (by @kevinstubbs).
+* Added French, Italian, Swedish and Turkish support (by @anokata).
+
 ## 0.11.1
 * Fixed Greek file.
 

@@ -4,8 +4,11 @@ yarn.lock
 test/
 coverage/
 api.md
-
 build.js
 /[a-z][a-z].json
 dvorak.json
 colemak.json
+**/*.test.*
+**/types.ts
+**/errors.ts
+tsconfig.json

@@ -3,8 +3,8 @@ yarn-error.log
 
 coverage/
 api.md
-
 [a-z][a-z].js
 dvorak.js
 colemak.js
 index.js
+dist/

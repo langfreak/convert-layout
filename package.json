@@ -1,10 +1,11 @@
 {
-  "name": "convert-layout",
-  "version": "0.11.1",
+  "name": "@langfreak/convert-layout",
+  "version": "0.11.2",
   "description": "Converts text from one keyboard layout to other",
   "keywords": [
     "keyboard",
     "keyboard layout",
+    "virtual keyboard",
     "russian",
     "english",
     "change",
@@ -16,38 +17,46 @@
     "ukrainian",
     "hebrew",
     "persian",
+    "swedish",
+    "turkish",
+    "georgian",
+    "hungarian",
+    "italian",
+    "french",
     "farsi"
   ],
   "scripts": {
-    "prepack": "npm run build",
-    "build": "node build.js",
-    "clean": "rimraf coverage/ index.js colemak.js dvorak.js ??.js",
+    "build": "yarn clean && node build.js",
+    "clean": "rimraf dist/ coverage/",
     "test": "yarn build && jest --coverage && eslint . && size-limit"
   },
   "author": "Andrey Sitnik <andrey@sitnik.ru>",
+  "main": "./index.js",
   "license": "MIT",
-  "repository": "ai/convert-layout",
+  "repository": "langfreak/convert-layout",
   "devDependencies": {
-    "@logux/eslint-config": "^45.4.8",
-    "@logux/sharec-config": "^0.12.2",
-    "@size-limit/preset-small-lib": "^6.0.2",
-    "clean-publish": "^3.4.1",
-    "eslint": "^7.32.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-jest": "^24.5.2",
+    "@logux/eslint-config": "^53.5.1",
+    "@logux/sharec-config": "^0.13.1",
+    "@size-limit/preset-small-lib": "^11.1.6",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "clean-publish": "^5.1.0",
+    "eslint": "^9.18.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jest": "^28.10.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prefer-let": "^1.1.0",
-    "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-unicorn": "^36.0.0",
-    "jest": "^27.2.5",
-    "lint-staged": "^11.2.3",
-    "prettier": "^2.4.1",
-    "rimraf": "^3.0.2",
-    "simple-git-hooks": "^2.6.1",
-    "size-limit": "^6.0.1",
-    "yaspeller": "^7.2.0"
+    "eslint-plugin-prefer-let": "^4.0.0",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-security": "^3.0.1",
+    "eslint-plugin-unicorn": "^56.0.1",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.3.0",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
+    "simple-git-hooks": "^2.7.0",
+    "size-limit": "^11.1.6",
+    "typescript": "^4.4.4"
   },
   "jest": {
     "testEnvironment": "node",
@@ -61,7 +70,6 @@
     "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
-    "*.md": "yaspeller",
     "build.js": "eslint --fix",
     "*.js": [
       "prettier --write",
@@ -80,51 +88,21 @@
     "singleQuote": true,
     "trailingComma": "none"
   },
-  "eslintConfig": {
-    "extends": "@logux/eslint-config",
-    "rules": {
-      "quotes": "off"
-    },
-    "overrides": [
-      {
-        "files": [
-          "index.js"
-        ],
-        "rules": {
-          "node/global-require": "off"
-        }
-      }
-    ]
-  },
-  "eslintIgnore": [
-    "convert.js",
-    "[a-z][a-z].js",
-    "dvorak.js",
-    "colemak.js"
-  ],
   "size-limit": [
     {
-      "path": "ru.js",
+      "path": "dist/ru.js",
       "limit": "500 B"
     }
   ],
   "clean-publish": {
     "cleanDocs": true
   },
-  "yaspeller": {
-    "lang": "en",
-    "ignoreCapitalization": true,
-    "ignoreText": [
-      " \\(by [^)]+\\)."
-    ],
-    "dictionary": [
-      "Versioning",
-      "Colemak",
-      "npm"
-    ]
-  },
   "sharec": {
     "config": "@logux/sharec-config",
-    "version": "0.12.2"
-  }
+    "version": "0.13.1"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

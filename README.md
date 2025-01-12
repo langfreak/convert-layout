@@ -1,6 +1,6 @@
 # Convert Layout
 
-**DEPRECADED:** Use `KeyboardEvent#code` in `keyup` event.
+**NOTE:** The upstream package was deprecated with this message "Use `KeyboardEvent#code` in `keyup` event." I couldn't find a way for that to substitute how I was using this package, so I created this fork.
 
 A JavaScript library to convert text from one keyboard layout to other.
 
@@ -14,10 +14,13 @@ bankcardName.keyup(function () {
 });
 ```
 
+The upstream package was sponsored by Evil Martians.  
 <a href="https://evilmartians.com/?utm_source=convert-layout">
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
        alt="Sponsored by Evil Martians" width="236" height="54">
 </a>
+
+This fork is sponsored by [Langfreak](https://www.unutma.app/) where it is used as part of the virtual keyboard implementation which lets language learners type with the keyboard layout of their target language, without having to change their OS settings to support it.
 
 
 ## Usage

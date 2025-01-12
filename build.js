@@ -1,5 +1,16 @@
-let { writeFileSync, readFileSync, readdirSync, unlinkSync } = require('fs')
-let { join, basename } = require('path')
+let {
+  ensureDirSync,
+  readdirSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync
+} = require('fs-extra')
+const { copyFileSync } = require('node:fs')
+let { basename, join } = require('node:path')
+
+const buildOutput = 'dist'
+
+ensureDirSync(join(__dirname, buildOutput))
 
 readdirSync(__dirname)
   .filter(file => /^[a-z]{2}.js$/.test(file) || file === 'index.js')
@@ -22,19 +33,21 @@ function sortHash(mappingTuple) {
   return '\u0020' + mappingTuple[0]
 }
 
-function sortFn(a, b) {
-  a = sortHash(a)
-  b = sortHash(b)
-  if (a < b) {
-    return -1
-  } else if (a > b) {
-    return 1
-  } else {
-    return 0
+function sortFn(scalar = 1) {
+  return (a, b) => {
+    a = sortHash(a)
+    b = sortHash(b)
+    if (a < b) {
+      return -1 * scalar
+    } else if (a > b) {
+      return 1 * scalar
+    } else {
+      return 0
+    }
   }
 }
 
-function toJs(map) {
+function toJs(map, shouldSort = true) {
   let tuples = []
   for (let key in map) {
     if (key === map[key]) {
@@ -42,7 +55,8 @@ function toJs(map) {
     }
     tuples.push([key, map[key]])
   }
-  tuples.sort(sortFn)
+  if (shouldSort) tuples.sort(sortFn(shouldSort ? 1 : -1))
+
   let keys = tuples.map(tuple => tuple[0]).join('')
   let values = tuples.map(tuple => tuple[1]).join('')
 
@@ -53,6 +67,8 @@ function toJs(map) {
     ',\n' +
     '  ' +
     JSON.stringify(values) +
+    ',\n' +
+    (shouldSort ? 'true' : 'false') +
     '\n' +
     ')\n'
   )
@@ -62,11 +78,41 @@ for (let lang of langs) {
   let mapping = JSON.parse(
     readFileSync(join(__dirname, lang + '.json')).toString('utf-8')
   )
-  writeFileSync(join(__dirname, lang + '.js'), toJs(mapping))
+
+  writeFileSync(
+    join(__dirname, buildOutput, lang + '.js'),
+    // Sort georgian (ka) alphabet differently than the others.
+    toJs(mapping, lang !== 'ka')
+  )
 }
 
+copyFileSync(
+  join(__dirname, 'convert.js'),
+  join(__dirname, buildOutput, 'convert.js')
+)
+
+copyFileSync(
+  join(__dirname, 'package.json'),
+  join(__dirname, buildOutput, 'package.json')
+)
+
+copyFileSync(
+  join(__dirname, 'README.md'),
+  join(__dirname, buildOutput, 'README.md')
+)
+
+copyFileSync(
+  join(__dirname, 'LICENSE'),
+  join(__dirname, buildOutput, 'LICENSE')
+)
+
+copyFileSync(
+  join(__dirname, 'CHANGELOG.md'),
+  join(__dirname, buildOutput, 'CHANGELOG.md')
+)
+
 writeFileSync(
-  join(__dirname, 'index.js'),
+  join(__dirname, buildOutput, 'index.js'),
   'module.exports = {\n' +
     langs.map(name => '  ' + name + ": require('./" + name + "')").join(',\n') +
     '\n' +
